@@ -16,5 +16,7 @@ namespace Practice5.Data
         public DbSet<Product> Product { get; set; } = default!;
         public DbSet<Sale> Sale { get; set; } = default!;
         public DbSet<Purchase> Purchase { get; set; } = default!;
+        public DbSet<Inventory> Inventories { get; set; }
+
     }
 }

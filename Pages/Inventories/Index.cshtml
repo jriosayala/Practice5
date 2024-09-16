@@ -1,0 +1,48 @@
+@page
+@model Practice5.Pages_Inventories.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Inventory[0].ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inventory[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inventory[0].LastUpdated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Inventory) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdated)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.InventoryID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.InventoryID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.InventoryID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
