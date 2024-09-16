@@ -5,5 +5,4 @@ public class Purchase
     public DateTime PurchaseDate { get; set; }
     public int QuantityPurchased { get; set; }
     public decimal PurchasePrice { get; set; }
-    public required Product Product { get; set; }
 }
