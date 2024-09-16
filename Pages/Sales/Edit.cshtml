@@ -1,0 +1,50 @@
+@page
+@model Practice5.Pages_Sales.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Sale</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Sale.SaleID" />
+            <div class="form-group">
+                <label asp-for="Sale.ProductID" class="control-label"></label>
+                <select asp-for="Sale.ProductID" class="form-control" asp-items="ViewBag.ProductID"></select>
+                <span asp-validation-for="Sale.ProductID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sale.SaleDate" class="control-label"></label>
+                <input asp-for="Sale.SaleDate" class="form-control" />
+                <span asp-validation-for="Sale.SaleDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sale.QuantitySold" class="control-label"></label>
+                <input asp-for="Sale.QuantitySold" class="form-control" />
+                <span asp-validation-for="Sale.QuantitySold" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sale.SalePrice" class="control-label"></label>
+                <input asp-for="Sale.SalePrice" class="form-control" />
+                <span asp-validation-for="Sale.SalePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
