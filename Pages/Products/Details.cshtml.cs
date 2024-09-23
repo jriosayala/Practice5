@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Practice5.Data;
 
+using Practice5.Models;
+
 namespace Practice5.Pages_Products
 {
     public class DetailsModel : PageModel

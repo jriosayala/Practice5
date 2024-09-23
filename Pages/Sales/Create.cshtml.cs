@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Practice5.Data;
+using Practice5.Models;
 
 namespace Practice5.Pages_Sales
 {

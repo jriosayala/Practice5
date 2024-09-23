@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Practice5.Data;
+using Practice5.Models;
 
 namespace Practice5.Pages_Products
 {
     public class EditModel : PageModel
     {
-        private readonly Practice5.Data.AppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public EditModel(Practice5.Data.AppDbContext context)
+        public EditModel(AppDbContext context)
         {
             _context = context;
         }
@@ -29,7 +30,7 @@ namespace Practice5.Pages_Products
                 return NotFound();
             }
 
-            var product =  await _context.Product.FirstOrDefaultAsync(m => m.ProductID == id);
+            var product = await _context.Product.FirstOrDefaultAsync(m => m.ProductID == id);
             if (product == null)
             {
                 return NotFound();
@@ -38,8 +39,6 @@ namespace Practice5.Pages_Products
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -61,7 +60,8 @@ namespace Practice5.Pages_Products
                 }
                 else
                 {
-                    throw;
+                    ModelState.AddModelError(string.Empty, "Unable to save changes. The product was updated by another user.");
+                    return Page();
                 }
             }
 
