@@ -30,7 +30,7 @@ namespace Practice5.Pages_Inventories
                 return NotFound();
             }
 
-            var inventory =  await _context.Inventories.FirstOrDefaultAsync(m => m.InventoryID == id);
+            var inventory = await _context.Inventories.FirstOrDefaultAsync(m => m.InventoryID == id);
             if (inventory == null)
             {
                 return NotFound();
@@ -48,7 +48,15 @@ namespace Practice5.Pages_Inventories
                 return Page();
             }
 
-            _context.Attach(Inventory).State = EntityState.Modified;
+            var inventoryToUpdate = await _context.Inventories.FindAsync(Inventory.InventoryID);
+            if (inventoryToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            inventoryToUpdate.ProductID = Inventory.ProductID;
+            inventoryToUpdate.Quantity = Inventory.Quantity;
+            inventoryToUpdate.LastUpdated = Inventory.LastUpdated;
 
             try
             {
