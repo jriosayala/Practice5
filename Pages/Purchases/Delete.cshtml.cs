@@ -12,9 +12,9 @@ namespace Practice5.Pages_Purchases
 {
     public class DeleteModel : PageModel
     {
-        private readonly Practice5.Data.AppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public DeleteModel(Practice5.Data.AppDbContext context)
+        public DeleteModel(AppDbContext context)
         {
             _context = context;
         }
@@ -30,15 +30,11 @@ namespace Practice5.Pages_Purchases
             }
 
             var purchase = await _context.Purchase.FirstOrDefaultAsync(m => m.PurchaseID == id);
-
             if (purchase == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Purchase = purchase;
-            }
+            Purchase = purchase;
             return Page();
         }
 
@@ -50,12 +46,14 @@ namespace Practice5.Pages_Purchases
             }
 
             var purchase = await _context.Purchase.FindAsync(id);
-            if (purchase != null)
+
+            if (purchase == null)
             {
-                Purchase = purchase;
-                _context.Purchase.Remove(Purchase);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
+
+            _context.Purchase.Remove(purchase);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

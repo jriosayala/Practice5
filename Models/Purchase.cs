@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Practice5.Models
 {
     public class Purchase

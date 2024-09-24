@@ -13,9 +13,9 @@ namespace Practice5.Pages_Purchases
 {
     public class EditModel : PageModel
     {
-        private readonly Practice5.Data.AppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public EditModel(Practice5.Data.AppDbContext context)
+        public EditModel(AppDbContext context)
         {
             _context = context;
         }
@@ -30,7 +30,7 @@ namespace Practice5.Pages_Purchases
                 return NotFound();
             }
 
-            var purchase =  await _context.Purchase.FirstOrDefaultAsync(m => m.PurchaseID == id);
+            var purchase = await _context.Purchase.FirstOrDefaultAsync(m => m.PurchaseID == id);
             if (purchase == null)
             {
                 return NotFound();
@@ -39,13 +39,17 @@ namespace Practice5.Pages_Purchases
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            var existingPurchase = await _context.Purchase.FindAsync(Purchase.PurchaseID);
+            if (existingPurchase != null)
+            {
+                _context.Entry(existingPurchase).State = EntityState.Detached;
             }
 
             _context.Attach(Purchase).State = EntityState.Modified;
@@ -62,7 +66,8 @@ namespace Practice5.Pages_Purchases
                 }
                 else
                 {
-                    throw;
+                    ModelState.AddModelError(string.Empty, "Unable to save changes. The purchase was updated by another user.");
+                    return Page();
                 }
             }
 
