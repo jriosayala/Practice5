@@ -30,15 +30,11 @@ namespace Practice5.Pages_Sales
             }
 
             var sale = await _context.Sale.FirstOrDefaultAsync(m => m.SaleID == id);
-
             if (sale == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Sale = sale;
-            }
+            Sale = sale;
             return Page();
         }
 
@@ -50,12 +46,14 @@ namespace Practice5.Pages_Sales
             }
 
             var sale = await _context.Sale.FindAsync(id);
-            if (sale != null)
+
+            if (sale == null)
             {
-                Sale = sale;
-                _context.Sale.Remove(Sale);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
+
+            _context.Sale.Remove(sale);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

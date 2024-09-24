@@ -30,13 +30,12 @@ namespace Practice5.Pages_Sales
                 return NotFound();
             }
 
-            var sale =  await _context.Sale.FirstOrDefaultAsync(m => m.SaleID == id);
+            var sale = await _context.Sale.FirstOrDefaultAsync(m => m.SaleID == id);
             if (sale == null)
             {
                 return NotFound();
             }
             Sale = sale;
-           ViewData["ProductID"] = new SelectList(_context.Product, "ProductID", "ProductID");
             return Page();
         }
 
@@ -49,7 +48,16 @@ namespace Practice5.Pages_Sales
                 return Page();
             }
 
-            _context.Attach(Sale).State = EntityState.Modified;
+            var saleToUpdate = await _context.Sale.FindAsync(Sale.SaleID);
+            if (saleToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            saleToUpdate.ProductID = Sale.ProductID;
+            saleToUpdate.SaleDate = Sale.SaleDate;
+            saleToUpdate.QuantitySold = Sale.QuantitySold;
+            saleToUpdate.SalePrice = Sale.SalePrice;
 
             try
             {

@@ -12,16 +12,16 @@ namespace Practice5.Pages_Sales
 {
     public class CreateModel : PageModel
     {
-        private readonly Practice5.Data.AppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public CreateModel(Practice5.Data.AppDbContext context)
+        public CreateModel(AppDbContext context)
         {
             _context = context;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["ProductID"] = new SelectList(_context.Product, "ProductID", "ProductID");
+            // ViewData["ProductID"] = new SelectList(_context.Product, "ProductID", "ProductID");
             return Page();
         }
 
